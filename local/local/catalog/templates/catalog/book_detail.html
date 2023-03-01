@@ -1,0 +1,17 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h1 style="margin-bottom:30px">Title: {{book.title}}</h1>
+
+<p><b>Author: </b>{{book.author}}</p>
+<p><b>Summary: </b>{{book.summary}}</p>
+<p><b>Genres: </b>{% for genre in book.genre.all%}{{genre}}{%if not forloop.last%}, {%endif%}{% endfor %}</p>
+<p><b>Languages: </b>{% for lang in book.language.all%}{{lang}}{%if not forloop.last%}, {%endif%}{% endfor %}</p>
+
+{% for inst in book.bookinstance_set.all %}
+<hr>
+<p class="{%if inst.status == 'a'%}text-success{% elif inst.status == 'n'%}text-danger{% else %}text-warning{%endif%}">{{inst.get_status_display}}</p>
+{% if inst.due_back%}<p><b>Due back: </b>{{inst.due_back}}</p>{%endif%}
+<p class="text-muted"><b>Id: </b>{{inst.id}}</p>
+{%endfor%}
+{% endblock %}

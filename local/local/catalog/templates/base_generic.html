@@ -18,6 +18,19 @@
             <div class="col-sm-2">
                 {% block sidebar %}
                 <ul>
+                    {%if user.is_authenticated%}
+                    <li>
+                        User: {{user.get_username}}
+                    </li>
+                     <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
+                    <li>
+                        <a href="{%url 'logout'%}">Logout</a>
+                    </li>
+                    {%else%}
+                    <li>
+                        <a href="{%url 'login'%}">Login</a>
+                    </li>
+                    {%endif%}
                     <li>
                       <a href="{% url 'index'%}">Home</a>
                     </li>
